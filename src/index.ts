@@ -1,7 +1,6 @@
 import express from 'express';
 import imageRouter from './routes/image';
 
-
 const app = express();
 const port = 3000;
 
