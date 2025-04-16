@@ -9,12 +9,8 @@ interface ResizeQuery {
   height: string;
 }
 
-router.get('/images', async (req: Request, res: any) => {
+router.get('/images', async (req: Request, res: Response) => {
   const { filename, width, height } = req.query as unknown as ResizeQuery;
-
-  if (!filename || !width || !height) {
-    return res.status(400).send('Invalid query parameters');
-  }
   try {
     const imageBuffer = await resizeImage(
       filename as string,
@@ -23,9 +19,14 @@ router.get('/images', async (req: Request, res: any) => {
     );
     res.type('image/jpeg');
     res.send(imageBuffer);
-  } catch (error: any) {
-    console.log(error.message);
-    res.status(500).send('Error processing image');
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+      res.status(500).send('Error processing image');
+    } else {
+      console.log('Unknown error occurred');
+      res.status(500).send('An unknown error occurred');
+    }
   }
 });
 
