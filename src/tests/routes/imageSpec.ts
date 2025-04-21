@@ -3,7 +3,7 @@ describe('Image Route', () => {
     const response = await fetch(
       'http://localhost:3000/api/images?filename=invalid&width=invalid&height=invalid',
     );
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
 
   it('should return 200 status and a resized image if query params are valid', async () => {

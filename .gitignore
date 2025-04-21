@@ -12,7 +12,9 @@ yarn-error.log*
 jspm_packages/
 
 # Build directories
-dist/
+dist/*
+!dist/assets/
+!dist/assets/**
 build/
 
 # Coverage directory used by tools like istanbul

@@ -1,7 +1,19 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+import { app } from '../../app';
+
 import { resizeImage } from '../../utils/imageProcessor';
+import { Server } from 'http';
+
+let server: Server;
+
+beforeAll(() => {
+  const port = 3000;
+  server = app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+  });
+});
 
 describe('Image Processor', () => {
   it('should return an image from the "full" folder \
@@ -41,6 +53,11 @@ describe('Image Processor', () => {
       );
     } catch (error) {
       console.error('Error deleting the file:', error);
+    }
+    if (server) {
+      server.close(() => {
+        console.log('Server closed');
+      });
     }
   });
 });
