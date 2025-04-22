@@ -17,6 +17,9 @@ dist/*
 !dist/assets/**
 build/
 
+!dist/assets/thumb/
+!dist/assets/thumb/.gitkeep
+
 # Coverage directory used by tools like istanbul
 coverage/
 
